@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  langflow:
+    image: langflowai/langflow:1.0.19
+    restart: unless-stopped
+    deploy:
+      replicas: 2
+    networks:
+      - langflow-nw
+    ports:
+      - "7860:7860"
+    env_file:
+      .env
+    volumes:
+      - /mnt/glusterfs/langflow:/app/langflow
+
+networks:
+    langflow-nw:
+      driver: overlay
